@@ -1,3 +1,5 @@
+from os import write
+
 sizes = [
     {
         "size": "Grande",
@@ -54,6 +56,34 @@ ingredients = [
     },
 ]
 
+drinks = [
+    {
+        "name": "Jugo de Limón",
+        "price": 50,
+        "id": "li"
+    },
+    {
+        "name": "Jugo de Fresa",
+        "price": 55,
+        "id": "fr"
+    },
+    {
+        "name": "Jugo de Melón",
+        "price": 60,
+        "id": "me"
+    },
+    {
+        "name": "Coca Cola",
+        "price": 75,
+        "id": "cc"
+    },
+    {
+        "name": "Agua",
+        "price": 40,
+        "id": "ag"
+    },
+]
+
 
 def size_menu():
     while True:
@@ -63,9 +93,11 @@ def size_menu():
             ids.append(size["id"])
             print(f"{size['size']} ( {size['id']} )", end=" ")
         print(":", end=" ")
-        option = input("")
-        if option.lower() in ids:
-            return option
+        opt = input("")
+        if opt.lower() in ids:
+            selected = list(filter(lambda el: el["id"] == opt.lower(), sizes))
+            print(f"Tamaño seleccionado: {selected[0]['size']}\n")
+            return opt
         print("=> Debe seleccionar el tamaño correcto!!")
 
 
@@ -86,7 +118,7 @@ def ingredients_menu():
             print("=> Debe seleccionar un ingrediente correcto!!\n")
 
 
-def generate_bill(pizza_size, extra_ing):
+def pizza_bill(pizza_size, extra_ing):
     size_list = list(filter(lambda el: el["id"] in pizza_size, sizes))
     subtotal = size_list[0]["price"]
     aux_list = []
@@ -103,30 +135,66 @@ def generate_bill(pizza_size, extra_ing):
     return subtotal
 
 
+def register_sale(total, client):
+    with open('asd.txt', 'a') as writer:
+        writer.write(str(total).ljust(10))
+        writer.write(client["name"].ljust(20))
+        writer.write(client["id"].ljust(10))
+        writer.write("\n")
+
+
+def check_sales():
+    print("Ventas registradas:\n")
+    print("Total".ljust(10) + "Cliente".ljust(20) + "Cedula".ljust(10))
+    with open('asd.txt', 'r') as reader:
+        print(reader.read())
+
+
+def check_new_order(ord_list, client):
+    total = sum(ord_list)
+    while True:
+        res = input("¿Desea continuar [s/n]?: ")
+        print("*" * 30)
+        if res == "n" or res == "s":
+            break
+        print("=> Debe seleccionar una opción correcta!!")
+    if res.lower() == "n":
+        print(
+            f"El pedido tiene un total de {len(ord_list)} pizza(s) por un monto de {total}\n"
+        )
+        print("Gracias por su compra, regrese pronto")
+        register_sale(total, client)
+        check_sales()
+    return res.lower() == "s"
+
+
+def client_menu():
+    client = {}
+    client["name"] = input("Indique su nombre y apellido [EJ: Jose Arias]: ")
+    client["id"] = input("Indique su cedula de identidad: ")
+    print("*" * 30)
+    print()
+    return client
+
+
 def main_menu():
-    order_total = []
+    order_list = []
     hr_line = "*" * 30
     print(hr_line)
     print(f"*{'PIZZERIA UCAB'.center(28)}*")
     print(hr_line)
+    client = client_menu()
     while True:
-        print(f"Pizza número {len(order_total) + 1}")
+        print(f"Pizza número {len(order_list) + 1}")
         print("\nOpciones")
-        size, extra_ing = size_menu(), ingredients_menu()
-        order_total.append(generate_bill(size, extra_ing))
+        size = size_menu()
+        extra_ing = ingredients_menu()
+        order_list.append(pizza_bill(size, extra_ing))
         print(hr_line)
-        while True:
-            res = input("¿Desea continuar [s/n]?: ")
-            print(hr_line)
-            if res == "n" or res == "s":
-                break
-            print("=> Debe seleccionar una opción correcta!!")
-        if res.lower() == "n":
-            print(
-                f"El pedido tiene un total de {len(order_total)} pizza(s) por un monto de {sum(order_total)}\n"
-            )
-            print("Gracias por su compra, regrese pronto")
+        if not check_new_order(order_list, client):
             break
 
 
-main_menu()
+if __name__ == "__main__":
+    main_menu()
+    # review_sales()
