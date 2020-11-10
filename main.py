@@ -64,35 +64,57 @@ def size_menu():
             print(f'{size["size"]} ( {size["id"]} )', end=' ')
         print(":", end=' ')
         option = input('')
-        if (option.lower() in ids):
+        if option.lower() in ids:
             return option
         print("=> Debe seleccionar el tamaño correcto!!")
 
 
 def ingredients_menu():
+    extra_ing = set()
     while True:
         ids = []
         print("Ingredientes:")
-        for ingredient in ingredients:
-            ids.append(ingredient["id"])
-            print(f'{ingredient["name"]} ( {ingredient["id"]} )')
-        option = input('\nIndique ingrediente (enter para terminar):', end=' ')
-        if (option.lower() in ids):
-            # continue
-            return option
-        print("=> Debe seleccionar el ingrediente correcto!!")
+        for ing in ingredients:
+            ids.append(ing["id"])
+            print(f'{ing["name"]} ( {ing["id"]} )')
+        option = input('\nIndique ingrediente (enter para terminar): ')
+        if option.lower() in ids:
+            extra_ing.add(option.lower())
+        elif option == "":
+            return list(extra_ing)
+        else:
+            print("=> Debe seleccionar un ingrediente correcto!!\n")
+
+
+def generate_bill(pizza_size, extra_ing):
+    size_list = list(filter(lambda el: el["id"] in pizza_size, sizes))
+    subtotal = size_list[0]["price"]
+    print(f"Usted seleccionó una pizza {size_list[0]['size']}", end=" ")
+    if not extra_ing:
+        print("Margarita\n")
+    else:
+        ing_list = list(filter(lambda el: el["id"] in extra_ing, ingredients))
+        print("con: ", end=" ")
+        for ing in ing_list:
+            subtotal += ing["price"]
+            print(ing["name"], end=" ")
+        print("\n")  #Cambiar
+    print(f"Subtotal a pagar por una pizza {size_list[0]['size']}: {subtotal}")
+    return subtotal
 
 
 def main_menu():
-    print("*" * 30)
+    hr_line = "*" * 30
+    print(hr_line)
     print(f"*{'PIZZERIA UCAB'.center(28)}*")
-    print("*" * 30)
+    print(hr_line)
     print("\nOpciones")
-    size = size_menu()
+    size, extra_ing = size_menu(), ingredients_menu()
+    generate_bill(size, extra_ing)
+    print(hr_line)
 
+    print(extra_ing)
     print(size)
 
 
-menu()
-# for x in ingredients:
-#     print(x["name"])
+main_menu()
