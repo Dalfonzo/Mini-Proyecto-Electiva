@@ -2,8 +2,10 @@ from os import write
 from datetime import datetime
 import json
 
-sizes = json.load('./data/sizes.json')
-ingredients = json.load('./data/ingredients.json')
+sizes_file = open("./data/sizes.json")
+ingredients_file = open("./data/ingredients.json")
+sizes = json.load(sizes_file)
+ingredients = json.load(ingredients_file)
 
 
 def pizza_bill(pizza_size, extra_ing):
@@ -29,7 +31,7 @@ def save_file(total, client):
         writer.write(client["id"].lower().ljust(10))
         writer.write(client["name"].lower().ljust(10))
         writer.write(client["lname"].lower().ljust(10))
-        writer.write(datetime.today().strftime('%Y-%m-%d %H:%M:%S'))
+        writer.write(datetime.today().strftime('%d-%m-%Y %H:%M:%S'))
         writer.write("\n")
 
 
