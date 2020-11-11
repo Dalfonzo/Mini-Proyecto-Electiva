@@ -57,34 +57,6 @@ ingredients = [
     },
 ]
 
-drinks = [
-    {
-        "name": "Jugo de Limón",
-        "price": 50,
-        "id": "li"
-    },
-    {
-        "name": "Jugo de Fresa",
-        "price": 55,
-        "id": "fr"
-    },
-    {
-        "name": "Jugo de Melón",
-        "price": 60,
-        "id": "me"
-    },
-    {
-        "name": "Coca Cola",
-        "price": 75,
-        "id": "cc"
-    },
-    {
-        "name": "Agua",
-        "price": 40,
-        "id": "ag"
-    },
-]
-
 
 def pizza_bill(pizza_size, extra_ing):
     size_list = list(filter(lambda el: el["id"] in pizza_size, sizes))
