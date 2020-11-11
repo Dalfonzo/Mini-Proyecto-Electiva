@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Jamón",
+    "price": 40,
+    "id": "ja"
+  },
+  {
+    "name": "Champiñones",
+    "price": 35,
+    "id": "ch"
+  },
+  {
+    "name": "Pimentón",
+    "price": 30,
+    "id": "pi"
+  },
+  {
+    "name": "Doble queso",
+    "price": 40,
+    "id": "dq"
+  },
+  {
+    "name": "Aceitunas",
+    "price": 57.5,
+    "id": "ac"
+  },
+  {
+    "name": "Pepperoni",
+    "price": 38.5,
+    "id": "pp"
+  },
+  {
+    "name": "Salchichón",
+    "price": 62.5,
+    "id": "sa"
+  }
+]

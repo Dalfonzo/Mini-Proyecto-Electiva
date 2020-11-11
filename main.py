@@ -1,61 +1,9 @@
 from os import write
 from datetime import datetime
+import json
 
-sizes = [
-    {
-        "size": "Grande",
-        "price": 580,
-        "id": "g"
-    },
-    {
-        "size": "Mediana",
-        "price": 430,
-        "id": "m"
-    },
-    {
-        "size": "Personal",
-        "price": 280,
-        "id": "p"
-    },
-]
-
-ingredients = [
-    {
-        "name": "Jamón",
-        "price": 40,
-        "id": "ja"
-    },
-    {
-        "name": "Champiñones",
-        "price": 35,
-        "id": "ch"
-    },
-    {
-        "name": "Pimentón",
-        "price": 30,
-        "id": "pi"
-    },
-    {
-        "name": "Doble queso",
-        "price": 40,
-        "id": "dq"
-    },
-    {
-        "name": "Aceitunas",
-        "price": 57.5,
-        "id": "ac"
-    },
-    {
-        "name": "Pepperoni",
-        "price": 38.5,
-        "id": "pp"
-    },
-    {
-        "name": "Salchichón",
-        "price": 62.5,
-        "id": "sa"
-    },
-]
+sizes = json.load('./data/sizes.json')
+ingredients = json.load('./data/ingredients.json')
 
 
 def pizza_bill(pizza_size, extra_ing):
@@ -185,7 +133,7 @@ def order_menu():
         order_list.append(pizza_bill(size, extra_ing))
         print(hr_line)
         if not check_new_order(order_list, client):
-            return
+            break
 
 
 def main_menu():
