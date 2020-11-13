@@ -1,16 +1,16 @@
 [
   {
-    "name": "Jamón",
+    "name": "Jamon",
     "price": 40,
     "id": "ja"
   },
   {
-    "name": "Champiñones",
+    "name": "Champinones",
     "price": 35,
     "id": "ch"
   },
   {
-    "name": "Pimentón",
+    "name": "Pimenton",
     "price": 30,
     "id": "pi"
   },
@@ -30,7 +30,7 @@
     "id": "pp"
   },
   {
-    "name": "Salchichón",
+    "name": "Salchichon",
     "price": 62.5,
     "id": "sa"
   }

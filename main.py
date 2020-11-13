@@ -59,8 +59,9 @@ def check_new_order(ord_list, client):
             f"El pedido tiene un total de {len(ord_list)} pizza(s) por un monto de {total:.1f}\n"
         )
         print("Gracias por su compra, regrese pronto")
-        save_file(total, client)
         input('\nPulse cualquier tecla para continuar...\n\n')
+        save_file(total, client)
+
     return res.lower() == "s"
 
 
@@ -145,13 +146,14 @@ def main_menu():
         print('*' * 30 + '\n')
         print("Bienvenido, por favor seleccione una opción:\n")
         print("0 - Salir")
-        print("1 - Ver registro de ventas")
-        print("2 - Registrar nueva venta")
+        print("1 - Registrar nueva venta")
+        print("2 - Ver registro de ventas")
+
         opc = int(input())
         switch = {
             0: exit,
-            1: read_file,
-            2: order_menu,
+            1: order_menu,
+            2: read_file,
         }
         print('\n' * 2 + '*' * 30)
         switch.get(opc,
