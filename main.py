@@ -1,7 +1,7 @@
-from os import write
 from datetime import datetime
 import json
 
+# Abrimos los archivos JSON que contienen la información de los ingredientes y tamaños de las pizzas
 sizes_file = open("./data/sizes.json")
 ingredients_file = open("./data/ingredients.json")
 sizes = json.load(sizes_file)
@@ -9,6 +9,11 @@ ingredients = json.load(ingredients_file)
 
 
 def pizza_bill(pizza_size, extra_ing):
+    """
+    Esta función genera el resumen de pago para la pizza seleccionada.
+    Recibe como parámetros un string con la opción del tamaño de la pizza
+    y un list de ingredientes extras
+    """
     size_list = list(filter(lambda el: el["id"] in pizza_size, sizes))
     subtotal = size_list[0]["price"]
     aux_list = []
@@ -28,6 +33,11 @@ def pizza_bill(pizza_size, extra_ing):
 
 
 def save_file(total, client):
+    """
+    Esta función guarda la información de la venta en un archivo .txt
+    Recibe como parametros el total de la venta y un Diccionario con la
+    información del cliente
+    """
     with open('data_file.txt', 'a') as writer:
         writer.write(str(total).ljust(10))
         writer.write(client["id"][:9].lower().ljust(10))
@@ -38,6 +48,10 @@ def save_file(total, client):
 
 
 def read_file():
+    """
+    Esta función lee la información del archivo data_file.txt
+    y la imprime en pantalla
+    """
     print("Ventas registradas:\n")
     print("Total".ljust(10) + "Cedula".ljust(10) + "Nombre".ljust(15) +
           "Apellido".ljust(15) + "Fecha y Hora")
@@ -47,6 +61,11 @@ def read_file():
 
 
 def check_new_order(ord_list, client):
+    """
+    Esta función verifica si el usuario desea otro pedido y retorna un boolean
+    Recibe como parámetro un list con la orden y un diccionario con la
+    información del cliente
+    """
     total = sum(ord_list)
     while True:
         res = input("¿Desea continuar [s/n]?: ")
@@ -66,6 +85,10 @@ def check_new_order(ord_list, client):
 
 
 def size_menu():
+    """
+    Esta función despliega un menú para elegir el tamaño de la pizza
+    Retorna un string con la opción elegida
+    """
     while True:
         ids = []
         print("Tamaños:", end=" ")
@@ -82,6 +105,10 @@ def size_menu():
 
 
 def ingredients_menu():
+    """
+    Esta función muestra un menú de ingredientes
+    Retorna una lista con las opciones elegidas
+    """
     extra_ing, ids = [], []
     print("Ingredientes:")
     for ing in ingredients:
@@ -99,6 +126,10 @@ def ingredients_menu():
 
 
 def client_menu():
+    """
+    Esta función solicita y valida la información del usuario
+    retorna un diccionario con la información
+    """
     client = {}
     while True:
         res = input("Indique su primer nombre: [Ej: Jose]: ")
@@ -124,6 +155,10 @@ def client_menu():
 
 
 def order_menu():
+    """
+    Esta función ejecuta el ciclo de compra para n pizzas
+    que el usuario solicite
+    """
     order_list = []
     hr_line = "*" * 30
     print(hr_line)
@@ -148,7 +183,6 @@ def main_menu():
         print("0 - Salir")
         print("1 - Registrar nueva venta")
         print("2 - Ver registro de ventas")
-
         opc = int(input())
         switch = {
             0: exit,
