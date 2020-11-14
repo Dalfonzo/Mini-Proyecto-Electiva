@@ -1,11 +1,5 @@
 from datetime import datetime
-import json
-
-# Abrimos los archivos JSON que contienen la información de los ingredientes y tamaños de las pizzas
-sizes_file = open("./data/sizes.json")
-ingredients_file = open("./data/ingredients.json")
-sizes = json.load(sizes_file)
-ingredients = json.load(ingredients_file)
+from data import ingredients, sizes
 
 
 def pizza_bill(pizza_size, extra_ing):
