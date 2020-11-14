@@ -177,7 +177,11 @@ def main_menu():
         print("0 - Salir")
         print("1 - Registrar nueva venta")
         print("2 - Ver registro de ventas")
-        opc = int(input())
+        opc = input()
+        if opc.isnumeric():
+            opc = int(opc)
+        else:
+            opc = -1
         switch = {
             0: exit,
             1: order_menu,
