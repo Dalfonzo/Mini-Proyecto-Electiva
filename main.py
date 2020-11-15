@@ -46,12 +46,15 @@ def read_file():
     Esta función lee la información del archivo data_file.txt
     y la imprime en pantalla
     """
-    print("Ventas registradas:\n")
-    print("Total".ljust(10) + "Cedula".ljust(10) + "Nombre".ljust(15) +
-          "Apellido".ljust(15) + "Fecha y Hora")
-    with open('data_file.txt', 'r') as reader:
-        print(reader.read())
-    input('\nPulse cualquier tecla para continuar...\n\n')
+    try:
+        print("Ventas registradas:\n")
+        print("Total".ljust(10) + "Cedula".ljust(10) + "Nombre".ljust(15) +
+              "Apellido".ljust(15) + "Fecha y Hora")
+        with open('data_file.txt', 'r') as reader:
+            print(reader.read())
+        input('\nPulse cualquier tecla para continuar...\n\n')
+    except:
+        print("\n=> No hay ventas registradas que mostrar\n")
 
 
 def check_new_order(ord_list, client):
